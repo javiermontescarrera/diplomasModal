@@ -1,0 +1,461 @@
+.container {
+    width: 80%;
+    height: calc(100vh - 100px);  /* Adjust for top margin and potential other elements */
+    margin: 50px auto;
+    border-radius: 10px; /* Rounded corners for the frame */
+    overflow: hidden;  /* Clip any overflowing content, especially for the rounded corners */
+}
+
+.file-container {
+    display: flex;
+    justify-content: space-between; /* Aligns children horizontally with space in-between */
+    align-items: center; /* Centers children vertically */
+}
+
+/* Style for file input elements */
+.file-container input[type="file"] {
+    flex: 1; /* Makes the input take up all available space */
+    margin-right: 10px; /* Small margin for spacing */
+    font-size: 16px; /* Adjust font size */
+    padding: 5px; /* Add some padding */
+    color: #333; /* Text color */
+    background-color: #f8f8f8; /* Background color */
+    cursor: pointer; /* Change cursor on hover */
+}
+
+.file-container input[type="file"]:hover {
+    background-color: #e6e6e6; /* Change background color on hover */
+}
+
+.file-container input[type="file"]::-webkit-file-upload-button {
+    visibility: hidden; /* Hide the default file upload button for WebKit browsers */
+}
+
+.file-container input[type="file"]::before {
+    content: 'Select file...'; /* Custom text */
+    display: inline-block;
+    background-color: #0077b6;
+    color: white;
+    padding: 5px 8px;
+    outline: none;
+    white-space: nowrap;
+    -webkit-user-select: none;
+    cursor: pointer;
+    text-shadow: 1px 1px #005a8e;
+    font-weight: bold;
+}
+
+.file-container input[type="file"]:hover::before {
+    background-color: #005a8e; /* Background color for custom text on hover */
+}
+
+
+.progress-bar {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.step-indicator {
+    width: 20%;
+    text-align: center;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #f0f0f0;
+    position: relative;
+    z-index: 1; /* Make sure the step-indicator is above the arrows */
+    cursor: pointer; /* Indicate clickability */
+    color:  #0077b6;
+}
+
+.step-indicator.active {
+    background-color: #0077b6;
+    color: white;
+}
+
+.step-indicator i {
+    margin-bottom: 10px;
+    font-size: 24px;
+}
+
+/* Arrow connector between steps */
+.step-indicator:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: -10%;
+    border: solid #0077b6;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 7px;
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+}
+
+.step {
+    background-color: #f0f0f0;
+    height: calc(100% - 64px);  /* Adjusted height to account for border and progress bar */
+    overflow-y: auto;  /* Add a scrollbar if content overflows vertically */
+    padding: 20px;
+    border-radius: 5px;
+    position: relative;
+}
+
+.step-title {
+    color: #0077b6;
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+button {
+    padding: 10px 15px;
+    background-color: #0077b6;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #005a8e;
+}
+
+.grid {
+    width: 100%;
+    overflow-y: auto;
+    background-color: white;
+    border-radius: 10px;
+    display: none; /* Add this line to initially hide the grid */
+}
+
+.hidden {
+    display: none;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+    border: 2px solid #ececec;
+}
+
+.table th,
+.table td {
+    border: 1px solid #ececec;
+    padding: 16px;
+    text-align: left;
+}
+
+.table th {
+    background-color: #0077b6;
+    color: #ffffff;
+    font-weight: bold;
+    border-top: none;
+}
+
+.table tr:nth-child(odd) {
+    background-color: #fafafa; /* #f2f2f2 Light gray for odd rows */
+}
+
+.table tr:nth-child(even) {
+    background-color: #e6e6e6; /* Slightly darker gray for even rows */
+}
+
+.table tr:hover {
+    background-color: #d9d9d9; /* Slightly darker when hovered */
+}
+
+#overlay + #loadingGif + * {
+    filter: blur(3px);
+    pointer-events: none;  /* Make elements non-interactive */
+}
+
+#overlay {
+    display: none;
+    position: absolute;
+    top: 80px; /* Adjust to match the progress bar height */
+    left: 0;
+    width: 100%;
+    bottom: 0; /* Use 'bottom' instead of 'height' for it to adjust automatically */
+    background-color: rgba(255, 255, 255, 0.7);
+    z-index: 1;
+}
+
+.step {
+    /* ... other styles ... */
+    max-height: 560px; /* you can adjust this value as needed */
+    overflow-y: auto;
+}
+
+/* Adjusting the styles for the button container */
+.button-container {
+    position: absolute;
+    top: 20px;  /* Adjust as necessary to position vertically */
+    right: 20px; /* Adjust as necessary to position horizontally */
+}
+
+/* Style for the buttons inside the button container */
+.button-container button {
+    margin-left: 10px;
+}
+
+.confirmation-content {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.batch-details,
+.qr-container {
+    width: 45%; /* Divides the space almost equally with a little space in between */
+    padding: 10px;
+    border: 1px solid #ececec;
+    border-radius: 5px;
+    background-color: #f8f8f8;
+}
+
+.batch-details ul {
+    list-style: none;
+    padding: 0;
+}
+
+.qr-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centers items horizontally */
+    justify-content: center; /* Centers items vertically, though in this context it might not be necessary */
+    width: 45%;
+    padding: 10px;
+    border: 1px solid #ececec;
+    border-radius: 5px;
+    background-color: #f8f8f8;
+}
+
+.batch-details h3, .qr-container h3 {
+    color: #333;
+}
+
+.qr-container img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+    border: none;
+}
+
+.qr-container p {
+    text-align: center;
+}
+
+.green-circle-check {
+    background-color: green;
+    border-radius: 50%; /* Makes it a circle */
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    line-height: 20px;
+    color: white;
+    margin-right: 5px; /* Space between the check and the text */
+    font-size: 14px;
+}
+
+.step-indicator.disabled {
+    background-color: #ccc;
+    color: #999;
+    cursor: not-allowed;
+}
+
+button:disabled {
+    background-color: #ccc;  /* This gives a grayish color, adjust as needed */
+    cursor: not-allowed;  /* Shows a 'not allowed' cursor when hovering over the button */
+    color: #373737;
+}
+
+
+
+/* Add animation styles for step 3 items */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.step#step3 p,
+.step#step3 ul {
+    opacity: 0; /* Start with items invisible */
+    animation-name: fadeIn;
+    animation-duration: 0.5s; /* Duration for the fade-in effect */
+    animation-fill-mode: forwards; /* Keep the end state of the animation */
+}
+
+.step#step3 p:nth-of-type(1),
+.step#step3 ul:nth-of-type(1) {
+    animation-delay: 0.5s; /* Delay to start animation */
+}
+
+.step#step3 p:nth-of-type(2),
+.step#step3 ul:nth-of-type(2) {
+    animation-delay: 2s; /* Delay to start animation */
+}
+
+.step#step3 p:nth-of-type(3),
+.step#step3 ul:nth-of-type(3) {
+    animation-delay: 3s; /* Delay to start animation */
+}
+
+.step#step3 p:nth-of-type(4) {
+    animation-delay: 4s; /* Delay to start animation */
+}
+
+.step#step3 p:last-of-type {
+    animation-delay: 2.5s; /* Delay to start animation for the last paragraph */
+}
+
+.step#step3 p:last-of-type {
+    color: #0077b6; /* A shade of blue for better visibility */
+    font-weight: bold; /* Make the text bold */
+    background-color: #e6f7ff; /* A light blue background for emphasis */
+    padding: 10px; /* Padding for better aesthetics */
+    border-radius: 5px; /* Rounded edges for a softer look */
+    margin-top: 15px; /* Some margin for better spacing */
+    animation-delay: 2.5s; /* (assuming you implemented the previous animations) */
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: white;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+
+
+/* Default Light Theme (You already have these styles) */
+
+/* Dark Theme Styles */
+.theme-switch-wrapper {
+    display: flex;
+    align-items: center;
+
+    top: 10px;  /* padding from the top */
+    right: 10px; /* padding from the right */
+    z-index: 10; /* make sure it's above other elements */
+}
+
+.theme-switch {
+    display: inline-block;
+    height: 24px;
+    position: relative;
+    width: 48px;
+}
+
+.theme-switch input {
+    display: none; /* Hide the input */
+}
+
+.slider {
+    background-color: #ccc;
+    bottom: 0;
+    cursor: pointer;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: .4s;
+}
+
+.slider:before {
+    background-color: #fff;
+    bottom: 4px;
+    content: "";
+    height: 16px;
+    left: 4px;
+    position: absolute;
+    transition: .4s;
+    width: 16px;
+}
+
+input:checked + .slider {
+    background-color: #0077b6; /* Or any other color you'd like for the active state */
+}
+
+input:checked + .slider:before {
+    transform: translateX(24px); /* Move the slider */
+}
+
+/* Rounded sliders */
+.slider.round {
+    border-radius: 24px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+body.dark {
+    background-color: #121212;
+    color: #ddd;
+}
+
+body.dark .step {
+    background-color: #1e1e1e;
+}
+
+body.dark .grid {
+    background-color: #2d2d2d;
+}
+
+body.dark .table tr:nth-child(odd) {
+    background-color: #1a1a1a;
+}
+
+body.dark .table tr:nth-child(even) {
+    background-color: #232323;
+}
+
+body.dark .table tr:hover {
+    background-color: #303030;
+}
+
+body.dark .table th {
+    background-color: #0077b6;
+    color: #ffffff;
+}
+
+/*... add other dark theme overrides ...*/
+
+body.dark .batch-details,
+body.dark .qr-container {
+    border-color: rgba(255, 255, 255, 0.5);
+    background-color: #333;
+    color: #ddd;
+}
+
+body.dark .batch-details h3,
+body.dark .qr-container h3 {
+    color: #ddd;
+}
+
+body.dark .qr-container img {
+    border-color: rgba(255, 255, 255, 0.3);
+    background-color: #ddd;
+    border-radius: 10px;
+}
+
+body.dark a {
+    color: #60AFFF;  /* A bright blue color */
+    text-decoration: none;  /* Remove the default underline */
+    border-bottom: 1px dashed #60AFFF;  /* Add a dashed underline for clarity */
+    transition: border-bottom 0.3s ease;  /* Transition for smooth hover effect */
+}
+
+body.dark a:hover {
+    border-bottom: 1px solid #60AFFF;  /* Change to a solid underline on hover */
+}

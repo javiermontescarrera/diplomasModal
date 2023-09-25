@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>University Diploma Generator</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+        <link rel="stylesheet" href="styles.css">
+    </head>
+
+    <body>
+        
+        <div class="container">
+            
+            <div class="theme-switch-wrapper">
+                <label class="theme-switch" for="checkbox">
+                    <input type="checkbox" id="checkbox" />
+                    <div class="slider round"></div>
+                </label>
+                <span>Dark Mode</span>
+            </div>
+                
+            <!-- Overlay for the blur effect -->
+            <div id="overlay" style="display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(255, 255, 255, 0.7);"></div>
+            
+            <!-- Progress Bar -->
+            <div class="progress-bar">
+                <div class="step-indicator active" id="indicator1" onclick="showStep(1)">
+                    <i class="fas fa-file-upload"></i><br>
+                    Students
+                </div>
+                <div class="step-indicator disabled" id="indicator2" onclick="showStep(2)"">
+                    <i class="fas fa-signature"></i><br>
+                    Signers
+                </div>
+                <div class="step-indicator disabled" id="indicator3" onclick="showStep(3)"">
+                    <i class="fas fa-list"></i><br>
+                    Summary
+                </div>
+                <div class="step-indicator disabled" id="indicator4" onclick="showStep(4)"">
+                    <i class="fas fa-check-circle"></i><br>
+                    Confirmation
+                </div>            
+            </div>
+
+            <!-- Loading GIF -->
+            <img id="loadingGif" src="./resources/CeD.gif" alt="Loading..." style="display: none; width: 50px; height: 50px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 2;">
+
+            <!-- Step 1: Load students list file -->
+            <div class="step" id="step1">
+                <div class="step-title">Step 1: Load Students List File</div>
+                <div class="file-container">
+                    <input type="file" id="studentFile">
+                    <button disabled>Upload</button>
+                </div>
+                <br />
+                <br />
+                <div class="grid" class="grid hidden">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                            <th>Name</th>
+                            <th>Career</th>
+                            <th>Student ID</th>
+                            <th>Graduation Date</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Step 2: Load signing responsables per career -->
+            <div class="step" id="step2">
+                <div class="step-title">Step 2: Load Signing Responsables per Career</div>
+                <div class="file-container">
+                    <input type="file" id="responsableFile">
+                    <button disabled>Upload</button>
+                </div>
+                <br />
+                <br />
+                <div class="grid" id="responsablesGrid" class="grid hidden">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Faculty</th>
+                                <th>Career</th>
+                                <th>Rector Name</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Step 3: Summary -->
+            <div class="step" id="step3">
+                <div class="button-container">
+                    <button id="editButton">Edit Details</button>
+                    <button id="genButton">Generate Diplomas</button>
+                </div>
+                
+                <div class="step-title">Step 3: Summary</div>
+
+                <!-- Display number of students -->
+                <p>
+                    <div class="green-circle-check"><i class="fas fa-check"></i></div>
+                    <strong>Number of Students:</strong> 5
+                </p>
+                
+                <!-- Display number of careers -->
+                <p>
+                    <div class="green-circle-check"><i class="fas fa-check"></i></div>
+                    <strong>Number of Careers:</strong> 3
+                </p>
+
+                <!-- Display number of Rectors/Signers -->
+                <p>
+                    <div class="green-circle-check"><i class="fas fa-check"></i></div>
+                    <strong>Number of Rectors/Signers:</strong> 3
+                </p>
+                
+                <br>
+                
+                <p><strong>Sample Students:</strong></p>
+                <ul>
+                    <li><div class="green-circle-check"><i class="fas fa-check"></i></div> Alice - Computer Science</li>
+                    <li><div class="green-circle-check"><i class="fas fa-check"></i></div> Bob - Mathematics</li>
+                    <li><div class="green-circle-check"><i class="fas fa-check"></i></div> Carol - Physics</li>
+                    <br>
+                    ...and 2 more.
+                </ul>
+
+                <!-- <p>...and 2 more.</p> -->
+                
+                <br>
+                
+                <p><strong>Sample Rectors/Signers by Career:</strong></p>
+                <ul>
+                    <li><div class="green-circle-check"><i class="fas fa-check"></i></div> Computer Science - Dr. John Doe</li>
+                    <li><div class="green-circle-check"><i class="fas fa-check"></i></div> Mathematics - Dr. Jane Smith</li>
+                    <li><div class="green-circle-check"><i class="fas fa-check"></i></div> Physics - Dr. Robert Brown</li>
+                </ul>
+
+                <br>
+
+                <p>Please review the details above. If everything looks correct, proceed to generate the diplomas. If you need to make changes, you can edit the details before proceeding.</p>
+            </div>
+
+            <!-- Step 4: Confirmation -->
+            <div class="step" id="step4">
+                <div class="step-title">Step 4: Confirmation</div>
+                <div class="confirmation-content">
+                    <div class="batch-details">
+                        <h1>Diplomas generated successfully!</h1>
+                        <br />
+                        <h3>Batch Creation Details</h3>
+                        <ul>
+                            <li><strong>Total Diplomas Generated:</strong> 200</li>
+                            <li><strong>Date of Creation:</strong> 20th September 2023</li>
+                            <li><strong>Batch ID:</strong>4dF881DA5C29295c4ee89Ba6dD922f27243117</li>
+                        </ul>
+                    </div>
+                    <div class="qr-container">
+                        <h3>Generated Diplomas Batch QR Code</h3>
+                        <img src="./resources/demoCQR8.svg" alt="QR Code for Verification" />
+                        <a href="https://testnets.opensea.io/es/collection/chainlink-encode-17" target="_blank" rel="noopener noreferrer">https://smartdipl.polygon/4dF881DA5C29295c4ee89Ba6dD922f27243117</a>
+                        <p>Scan the QR code to verify the details of the diploma batch.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <script src="script.js"></script>
+    </body>
+
+</html>
